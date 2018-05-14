@@ -22,8 +22,11 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
 //takes name of owner and repo
 getRepoContributors(owner, repo, function(err, result) {
+    if (owner === undefined || repo === undefined) {
+      console.log("Enter an owner AND a repo name!");
+    }
 
-
+    else {
     console.log("Errors:", err);
     var obj = JSON.parse(result);
 
@@ -34,7 +37,8 @@ getRepoContributors(owner, repo, function(err, result) {
       avatarURL = obj[i].avatar_url;
       loginPath = "avatars/" + obj[i].login + ".jpg";
       downloadImageByURL(avatarURL, loginPath);
-    }
+      }
+   }
 
   });
 
