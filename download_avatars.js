@@ -22,13 +22,17 @@ function getRepoContributors(repoOwner, repoName, cb) {
   };
 
   request(options, function(err, res, body) {
-    console.log(res);
+    console.log(err);
     cb(err, body);
   });
 }
 
 //downloads image
 function downloadImageByURL(url, filePath) {
+   if (url === undefined) {
+     console.log('provided owner and (or) repo does not exist/.env file is missing/.env file is missing info/.env file contains incorrect credentials');
+   }
+   else {
   request.get(url)
    .on('error', function (err) {
      throw err;
@@ -40,6 +44,7 @@ function downloadImageByURL(url, filePath) {
    .pipe(fs.createWriteStream(filePath));
    console.log('Downloading image...');
   }
+}
 
 //takes name of owner and repo
 getRepoContributors(owner, repo, function(err, result) {
